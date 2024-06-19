@@ -38,17 +38,7 @@ const Search: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={{ padding: 16 }} className="bg-blue-100 h-full">
-      <Text
-        style={{
-          fontSize: 24,
-          fontWeight: "600",
-          marginBottom: 16,
-          color: "#000",
-        }}
-      >
-        Results for "{query}"
-      </Text>
+    <SafeAreaView className="bg-blue-100 pt-14 mx-1 h-full">
       <FlatList
         data={data}
         numColumns={2}

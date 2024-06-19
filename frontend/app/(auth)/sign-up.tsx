@@ -81,11 +81,16 @@ const Signup = () => {
       }
 
       await AsyncStorage.setItem("jwt", result.token);
-      await AsyncStorage.setItem("userId", result.id);
 
       dispatch({ ...result });
 
       Alert.alert("Success", "User signed up successfully");
+      setForm({
+        email: "",
+        confirmPassword: "",
+        dob: "",
+        password: "",
+      });
       router.replace("/(tabs)/home");
     } catch (error: Error | any) {
       Alert.alert("Error", error.message);

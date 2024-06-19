@@ -19,7 +19,6 @@ import { setUser } from "@/redux/slices/userSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
-
 const SignIn = () => {
   const dispatch = useDispatch();
   const [login] = useLoginMutation();
@@ -69,7 +68,6 @@ const SignIn = () => {
       }
 
       await AsyncStorage.setItem("jwt", result.token);
-      await AsyncStorage.setItem("userId", result.id);
 
       dispatch(setUser({ ...result.data }));
 
@@ -81,9 +79,7 @@ const SignIn = () => {
     }
   };
 
-  const googleLoginHandler = async () => {
-    
-  };
+  const googleLoginHandler = async () => {};
 
   return (
     <SafeAreaView className="bg-blue-100 h-full">

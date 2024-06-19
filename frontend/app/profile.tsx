@@ -20,7 +20,6 @@ const Profile = () => {
     try {
       // Clear user token from AsyncStorage
       await AsyncStorage.removeItem("jwt");
-      await AsyncStorage.removeItem("userId");
 
       // Update Redux state to reset user data
       dispatch(resetUser());

@@ -15,12 +15,12 @@ const SearchInput = () => {
   const pathname = usePathname();
   const [query, setQuery] = useState("");
   return (
-    <View className="w-full h-16 px-4 bg-white rounded-2xl border-2 border-blue-200 focus:border-blue-300 ease-in-out duration-150 transition-all flex flex-row items-center mb-4">
+    <View className="w-[90%] h-16 px-4 bg-blue-100 border-b border-b-zinc-800 rounded-t-xl focus:border-b-blue-600 ease-in-out duration-150 transition-all flex flex-row items-center mb-4 mx-auto ">
       <TextInput
         className="text-base mt-0.5 text-black flex-1 font-pregular"
         value={query}
-        placeholder="Search a video topic"
-        placeholderTextColor="#CDCDE0"
+        placeholder="Search"
+        placeholderTextColor="gray"
         onChangeText={(e) => setQuery(e)}
       />
 
@@ -36,7 +36,7 @@ const SearchInput = () => {
           else router.push(`/search/${query}`);
         }}
       >
-        <AntDesign name="search1" size={28} color={'gray'} />
+        <AntDesign name="search1" size={28} color={"black"} />
       </TouchableOpacity>
     </View>
   );
