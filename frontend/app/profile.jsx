@@ -1,20 +1,83 @@
 import { View, Text, Alert } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetUser } from "@/redux/slices/userSlice";
 import { router } from "expo-router";
+import {
+  useGetUserQuery,
+  useUpdateUserPasswordMutation,
+} from "@/redux/api/user.api";
+import { RootState } from "@reduxjs/toolkit/query";
+import { jwtDecode } from "jwt-decode";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const [form, setForm] = useState({
     email: "",
-    password: "",
+    currentPassword: "",
     newPassword: "",
   });
+  // const user_id = "";
+  const [updatePassword] = useUpdateUserPasswordMutation();
+  /* 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = await AsyncStorage.getItem("jwt");
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken.userId;
+      user_id = userId;
+      console.log(user_id);
+    };
+    fetchUser();
+  }, []); */
+
+  /*   const { data, isLoading } = useGetUserQuery(user_id);
+  console.log("Data: ", data); */
+
+  const updatePasswordHandler = async () => {
+    if (!form.email || !form.currentPassword || !form.newPassword) {
+      Alert.alert(
+        "Error",
+        "Please enter email, current password, and new password"
+      );
+      return;
+    }
+
+    try {
+      const { email, currentPassword, newPassword } = form;
+
+      console.log("Before response");
+      const response = await updatePassword({
+        email: email,
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      }).unwrap();
+      console.log("After response");
+
+      console.log("update pass ", response);
+      if (response.error) {
+        Alert.alert("Error", response?.message || "Failed to update password");
+      } else {
+        Alert.alert(
+          "Success",
+          `${response.message} and your New Password is ${newPassword}` ||
+            `Password updated successfully and your New Password is ${newPassword}`
+        );
+        setForm({
+          email: "",
+          currentPassword: "",
+          newPassword: "",
+        });
+      }
+    } catch (error) {
+      console.log(error?.data?.message);
+      Alert.alert("Error", error?.data?.message || "Failed to update password");
+    }
+  };
 
   const logoutHandler = async () => {
     try {
@@ -53,12 +116,12 @@ const Profile = () => {
         />
         <FormField
           title="Password"
-          handleChangeText={(e) => setForm({ ...form, password: e })}
-          value={form.password}
-          placeholder="Password"
+          handleChangeText={(e) => setForm({ ...form, currentPassword: e })}
+          value={form.currentPassword}
+          placeholder="Current Password"
         />
         <FormField
-          title="New Password"
+          title="Password"
           handleChangeText={(e) => setForm({ ...form, newPassword: e })}
           value={form.newPassword}
           placeholder="New Password"
@@ -67,7 +130,7 @@ const Profile = () => {
         <CustomButton
           title="Update Password"
           containerStyles="bg-blue-500 mt-6"
-          handlePress={() => ""}
+          handlePress={updatePasswordHandler}
         />
         <CustomButton
           title="Logout"

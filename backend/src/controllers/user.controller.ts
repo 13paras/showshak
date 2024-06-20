@@ -155,12 +155,43 @@ const logoutUser = asyncHandler(async (_, res) => {
   });
 });
 
-const updateUser = '';
+const updateUserPassword = asyncHandler(async (req, res, next) => {
+  try {
+    const { email, currentPassword, newPassword } = req.body;
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      const error = createHttpError(401, 'User not found');
+      return next(error);
+    }
+
+    // Verify the current password
+    const isMatch = await user.matchPassword(currentPassword);
+    if (!isMatch) {
+      const error = createHttpError(401, 'Incorrect current password');
+      return next(error);
+    }
+
+    // Update the password
+    user.password = newPassword;
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Password updated successfully',
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
 
 export {
   registerUser,
   loginUser,
-  updateUser,
+  updateUserPassword,
   logoutUser,
   getUserProfile,
   getUser,

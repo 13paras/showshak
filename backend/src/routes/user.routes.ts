@@ -6,6 +6,7 @@ import {
   loginUser,
   logoutUser,
   registerUser,
+  updateUserPassword,
   // updateUser,
 } from '../controllers/user.controller';
 
@@ -23,7 +24,7 @@ router.post('/login', loginUser);
 router.post('/logout', logoutUser);
 router
   .route('/profile')
-  // .put(verifyToken, updateUser)
+  .put(verifyToken, updateUserPassword)
   .get(verifyToken, getUserProfile);
 
 export { router };

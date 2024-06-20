@@ -27,7 +27,19 @@ export const userApi = createApi({
         url: `${id}`,
       }),
     }),
+    updateUserPassword: builder.mutation({
+      query: ({ email, currentPassword, newPassword }) => ({
+        url: "profile",
+        method: "PUT",
+        body: { email, currentPassword, newPassword },
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useGetUserQuery } = userApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useGetUserQuery,
+  useUpdateUserPasswordMutation,
+} = userApi;

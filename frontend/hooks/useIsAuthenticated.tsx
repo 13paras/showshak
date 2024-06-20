@@ -14,10 +14,11 @@ const useIsAuthenticated = () => {
     const fetchUser = async () => {
       try {
         const token = await AsyncStorage.getItem("jwt");
-        const decodedToken = jwtDecode<CustomPayload>(token as string);
-        const userId = decodedToken.userId;
         if (token) {
-          setIsAuthenticated(true);
+          const decodedToken = jwtDecode<CustomPayload>(token);
+          const userId = decodedToken.userId;
+
+          // Dispatch actions to set user data
           dispatch(setUserAuth(true));
           dispatch(
             setUser({
@@ -25,10 +26,13 @@ const useIsAuthenticated = () => {
               loading: false,
             })
           );
+
+          setIsAuthenticated(true);
         } else {
-          setIsAuthenticated(false);
+          // No token found, user is not authenticated
           dispatch(setUserAuth(false));
           dispatch(setUser({ id: null, loading: false }));
+          setIsAuthenticated(false);
         }
       } catch (error) {
         console.error("Error fetching the token:", error);
