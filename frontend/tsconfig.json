@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "constants/icon.js", "constants/images.js", "constants/index.js", "components/TabBar.jsx", "app/(tabs)/_layout.jsx", "components/TabBarButton.jsx", "app/profile.jsx", "components/InAppPurchaseScreen.jsx"  ]
+, "constants/icon.js", "constants/images.js", "constants/index.js", "components/TabBar.jsx", "app/(tabs)/_layout.jsx", "components/TabBarButton.jsx", "app/profile.jsx", "components/InAppPurchaseScreen.tsx"  ]
 }

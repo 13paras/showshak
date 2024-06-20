@@ -39,3 +39,9 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
+
+dependencies {
+    val billing_version = "7.0.0"
+
+    implementation("com.android.billingclient:billing:$billing_version")
+}

@@ -14,6 +14,7 @@ import { images } from "@/constants";
 import { Checkbox, Divider, Text as PText } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import useIsAuthenticated from "@/hooks/useIsAuthenticated";
+import InAppPurchaseScreen from "@/components/InAppPurchaseScreen";
 
 const index = () => {
   const [checked, setChecked] = useState(false);
@@ -74,22 +75,6 @@ const index = () => {
                 handlePress={() => router.push("/sign-in")}
                 containerStyles="bg-blue-600"
               />
-            </View>
-
-            {/* //! Will be removed later only for development */}
-            <View className="space-y-4 mt-6 ">
-              <Link
-                href={"/referal/[query]"}
-                className="text-lg font-psemibold text-violet-600"
-              >
-                Referal
-              </Link>
-              <Link
-                href={"/home"}
-                className="text-lg font-psemibold text-violet-600"
-              >
-                Home
-              </Link>
             </View>
           </View>
         </ScrollView>
